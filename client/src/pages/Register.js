@@ -1,5 +1,7 @@
 import { useState } from "react";
 import Jumbotron from "../components/cards/Jumbotron";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 export default function Register() {
   //state
@@ -10,7 +12,12 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log(name, email, password);
+      const res = await axios.post(`${process.env.REACT_APP_API}/register`, {
+        name,
+        email,
+        password,
+      });
+      console.log(res);
     } catch (err) {
       console.log(err);
     }
@@ -55,8 +62,6 @@ export default function Register() {
           </div>
         </div>
       </div>
-
-      <pre>{JSON.stringify(name, null, 4)}</pre>
     </div>
   );
 }
